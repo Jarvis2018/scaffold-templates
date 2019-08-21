@@ -1,0 +1,32 @@
+{
+  "name": "wechat-miniprogram-template",
+  "version": "1.0.0",
+  "description": "小程序脚手架模板",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --fix --ext .js app/"
+  },
+  "author": "jarivs",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.3"
+  },
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "app/**/*.{js}": [
+      "npm run lint",
+      "git add"
+    ]
+  }
+}
