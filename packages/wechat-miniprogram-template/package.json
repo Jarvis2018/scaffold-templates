@@ -4,12 +4,14 @@
   "description": "小程序脚手架模板",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --fix --ext .js app/"
+    "lint": "eslint --fix --ext .js app/",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "author": "jarivs",
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "conventional-changelog-cli": "^2.0.25",
     "eslint": "^6.1.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "^2.18.2",
