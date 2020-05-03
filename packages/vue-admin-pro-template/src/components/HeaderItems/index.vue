@@ -2,18 +2,20 @@
   <div :class="currentMode">
     <hamburger v-if="mode === 'left'" v-model="isCollapse" @change="handleToggle"/>
 
-    <div class="right-content float-right">
-      <avatar
-        :url="url"
-        name="张三"
-        @logout="handleLogout"/>
-    </div>
+    <breadcrumb/>
+
+    <avatar
+      class="header__avatar"
+      :url="url"
+      :name="userName"
+      @logout="handleLogout"/>
   </div>
 </template>
 
 <script>
 import Hamburger from '@/components/Hamburger/index.vue'
 import Avatar from '@/components/Avatar/index.vue'
+import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import url from '../../assets/images/avatar.png'
 import { removeToken } from '@/utils/auth.js'
 import { Logout } from '../../api/user'
@@ -22,7 +24,8 @@ export default {
   name: 'HeaderItems',
   components: {
     Hamburger,
-    Avatar
+    Avatar,
+    Breadcrumb
   },
   props: {
     mode: {
@@ -33,7 +36,8 @@ export default {
   data () {
     return {
       isCollapse: false,
-      url: url
+      url: url,
+      userName: '测试'
     }
   },
   computed: {
@@ -61,9 +65,15 @@ export default {
 
 <style scoped>
   .header-items {
-    height: 100%;
+    z-index: 999;
+    display: flex;
+    align-items: center;
   }
   .nav--top {
     padding: 0 20px;
+  }
+  .header__avatar {
+    position: absolute;
+    right: 0;
   }
 </style>

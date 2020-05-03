@@ -3,10 +3,13 @@
     <el-container :class="{ 'app-aside--fixed': fixedAside }">
       <el-aside width="auto" class="app-aside" v-if="navMode === 'left'">
         <side-menu
-          :routes="routes"
           router
+          :routes="routes"
           :default-active="$route.path"
-          :collapse="isCollapse"/>
+          :collapse="isCollapse"
+          background-color="#304156"
+          text-color="#bfcbd9"
+          active-text-color="#1890ff"/>
       </el-aside>
       <el-main class="app-main" :class="{ 'marginTop': fixedHeader }">
         <el-header class="app-header" :class="{ 'app-header--fixed': fixedHeader }">
@@ -87,6 +90,8 @@ export default {
     background-color: #f0f2f5;
     .el-menu {
       width: 200px;
+      border: 1px transparent solid;
+      user-select: none;
     }
     .el-menu--collapse {
       width: 64px;
@@ -125,7 +130,7 @@ export default {
     .app-aside {
       height: 100vh;
       overflow: auto;
-      background: #ffffff;
+      background: #304156;
     }
     .app-content {
       padding: 0 20px;

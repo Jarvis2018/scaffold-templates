@@ -11,9 +11,11 @@
       </el-form-item>
       <el-form-item>
         <el-input
+          type="password"
           placeholder="密码：随便填"
           prefix-icon="el-icon-user"
-          v-model="userInfo.password">
+          v-model="userInfo.password"
+          @keyup.enter.native="handleLogin">
         </el-input>
       </el-form-item>
       <el-form-item>

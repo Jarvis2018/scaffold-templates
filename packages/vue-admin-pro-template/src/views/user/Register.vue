@@ -7,10 +7,10 @@
         <el-input type="email" v-model="userInfo.email" placeholder="邮箱"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input type="email" v-model="userInfo.password" placeholder="至少六位数密码，区分大小写"></el-input>
+        <el-input type="password" v-model="userInfo.password" placeholder="至少六位数密码，区分大小写"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input type="email" v-model="userInfo.passwordAgain" placeholder="确认密码"></el-input>
+        <el-input type="password" v-model="userInfo.passwordAgain" placeholder="确认密码"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" style="width: 50%">注册</el-button>
