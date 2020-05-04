@@ -13,7 +13,7 @@
         <el-input
           type="password"
           placeholder="密码：随便填"
-          prefix-icon="el-icon-user"
+          prefix-icon="el-icon-lock"
           v-model="userInfo.password"
           @keyup.enter.native="handleLogin">
         </el-input>
