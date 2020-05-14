@@ -10,7 +10,7 @@ module.exports = {
   configureWebpack: config => {
     // production环境 开启Gzip
     if (process.env.NODE_ENV === 'production') {
-      config.plugin.push(
+      config.plugins.push(
         new CompressionWebpackPlugin({
           algorithm: 'gzip',
           test: /\.(js|css)(\?.*)?$/i,
