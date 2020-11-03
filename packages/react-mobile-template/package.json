@@ -1,0 +1,74 @@
+{
+  "name": "react-mobile-template",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "env-cmd -e development react-app-rewired  start",
+    "build:qa": "env-cmd -e qa react-app-rewired  build",
+    "build": "env-cmd -e production react-app-rewired  build",
+    "lint": "eslint --ext .jsx,.js,.json src/",
+    "lint-fix": "eslint --fix --ext .jsx,.js,.json src/",
+    "eject": "react-app-rewired  eject"
+  },
+  "dependencies": {
+    "antd-mobile": "^2.3.4",
+    "axios": "^0.21.0",
+    "normalize.css": "^8.0.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.0",
+    "web-vitals": "^0.2.4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "babel-plugin-import": "^1.13.1",
+    "babel-plugin-react-scoped-css": "^1.1.0",
+    "customize-cra": "^1.0.0",
+    "env-cmd": "^10.1.0",
+    "eslint": "^7.12.1",
+    "eslint-config-standard": "^16.0.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.21.5",
+    "husky": "3.1.0",
+    "lint-staged": "^10.5.1",
+    "postcss-px-to-viewport": "^1.1.1",
+    "react-app-rewired": "^2.1.6",
+    "sass": "^1.27.0",
+    "scoped-css-loader": "^1.0.0",
+    "vconsole-webpack-plugin": "^1.5.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json}": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
