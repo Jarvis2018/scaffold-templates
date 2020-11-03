@@ -1,0 +1,163 @@
+@import './common/var.scss';
+
+// start--flex布局--start
+.m-flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.m-flex-row--top {
+  align-items: flex-start !important;
+}
+.m-flex-row--left {
+  justify-content: flex-start !important;
+}
+.m-flex-row-wrap {
+  flex-wrap: wrap;
+}
+.m-flex-row--center {
+  justify-content: center;
+}
+.m-flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.m-flex-col--start {
+  align-items: flex-start !important;
+}
+.m-flex-col--center {
+  justify-content: center !important;
+}
+.m-flex-no-shrink {
+  flex-shrink: 0 !important;
+}
+.m-flex--col-end {
+  justify-content: flex-end;
+}
+// end--flex布局--end
+
+
+// start--文本行数限制--start
+.m-line-1 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+@for $i from 2 through 5 {
+  .m-line-#{$i} {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $i;
+  }
+}
+// end--文本行数限制--end
+
+// start--定义字体样式--start
+.bold {
+  font-weight: bold;
+}
+@for $i from 10 through 20 {
+  .m-f#{$i} {
+    font-size: $i + px;
+  }
+}
+
+@for $i from 10 through 30 {
+  .m-lh#{$i} {
+    line-height: $i + px;
+  }
+}
+
+// end--定义字体样式--end
+
+
+// start--定义内外边距（0-60范围内的）--start
+@for $i from 0 through 60 {
+  // 只要偶数
+  @if $i%2 == 0 {
+
+    // 得出 margin和padding 的值 m-margin-2、m-padding-20
+    @each $direction in top, right, bottom, left {
+      .m-margin-#{$i} {
+        margin: $i + px;
+      }
+
+      .m-padding-#{$i} {
+        padding: $i + px;
+      }
+    }
+
+    // 得出 margin和padding 各个方向的值 m-margin-top-2、m-padding-bottom-20
+    @each $direction in top, right, bottom, left {
+      .m-margin-#{$direction}-#{$i} {
+        margin-#{$direction}: $i + px;
+      }
+
+      .m-padding-#{$direction}-#{$i} {
+        padding-#{$direction}: $i + px;
+      }
+    }
+  }
+}
+// end--定义内外边距--end
+
+/* start--Retina 屏幕下的 1px 边框--start */
+.m-border,
+.m-border-bottom,
+.m-border-left,
+.m-border-right,
+.m-border-top,
+.m-border-top-bottom {
+  position: relative;
+}
+
+.m-border-bottom:after,
+.m-border-left:after,
+.m-border-right:after,
+.m-border-top-bottom:after,
+.m-border-top:after,
+.m-border:after {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  box-sizing: border-box;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  // 多加0.1%，能解决有时候边框缺失的问题
+  width: 200.1%;
+  height: 200.1%;
+  transform: scale(0.5, 0.5);
+  border: 0 solid #e6e6e6;
+  z-index: 1;
+}
+
+.m-border-top:after {
+  border-top-width: 1px;
+}
+
+.m-border-left:after {
+  border-left-width: 1px;
+}
+
+.m-border-right:after {
+  border-right-width: 1px;
+}
+
+.m-border-bottom:after {
+  border-bottom-width: 1px;
+}
+
+.m-border-top-bottom:after {
+  border-width: 1px 0;
+}
+
+.m-border:after {
+  border-width: 1px;
+}
+/* end--Retina 屏幕下的 1px 边框--end */

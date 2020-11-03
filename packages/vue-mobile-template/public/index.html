@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover"/>
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <style type="text/css">
+      #y-loading {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        margin-left: -26px;
+        animation: opacity 2s linear infinite;
+      }
+      @keyframes opacity {
+        0% {
+          opacity: 1
+        }
+        50% {
+          opacity: .5
+        }
+        100% {
+          opacity: 1
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <!-- loading  -->
+    <svg id="y-loading" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3087" width="56" height="56"><path d="M76.416 164.309333L512 916.096 947.584 167.936v-3.626667H778.24L514.56 617.258667 251.989333 164.352z" fill="#cdcdcd" p-id="3088"></path><path d="M252.032 164.309333l262.485333 452.992L778.24 164.309333h-158.848L515.584 342.613333 412.16 164.266667z" fill="#cdcdcd" p-id="3089"></path></svg>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
