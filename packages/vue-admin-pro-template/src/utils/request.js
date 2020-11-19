@@ -1,95 +1,120 @@
 import Axios from 'axios'
-import { Notification } from 'element-ui'
+import { Notification, Loading } from 'element-ui'
 import router from '@/router'
 import { getToken } from './auth'
-// 自定义http code 对应的信息
-const httpCode = {
-  401: {
-    message: '未登录或登录已过期，请重新登录。'
-  },
-  403: {
-    message: '没有权限，访问被禁止。'
-  },
-  404: {
-    message: '发出的请求针对的是不存在的记录，服务器没有进行操作。'
-  },
-  500: {
-    message: '服务器发生错误，请检查服务器。'
+import config from '../config/index'
+
+const { baseServerUrl } = config
+
+Axios.defaults.withCredentials = true
+
+/**
+ * config 选项说明：
+ * _showLoading: true   是否显示loading 默认不显示
+ * _returnAll: true    （状态码为200）返参是否返回全部信息，默认不返回，只返回data.data
+ * _hideError: true     是否隐藏接口中返回的错误信息，默认显示后端的错误信息
+ * @type {AxiosInstance}
+ */
+
+const request = Axios.create({
+  timeout: 10000
+})
+
+let toast = null
+// 显示loading
+function showLoading (show) {
+  if (show) {
+    toast = Loading.service({
+      lock: true,
+      spinner: 'el-icon-loading',
+      text: '加载中...'
+    })
+  }
+}
+// 关闭loading
+function closeLoading (toast) {
+  if (toast) {
+    toast.close()
   }
 }
 
 function setBaseUrl (url) {
   let baseUrl = ''
-  const preUrl = url.split('/')[1]
-  switch (preUrl) {
-    case 'vue-admin-pro-template':
-      baseUrl = process.env.VUE_APP_BASE_API
-      break
-    case 'test':
-      baseUrl = process.env.VUE_APP_BASE_API2
-      break
-    default:
-      baseUrl = ''
-      break
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return baseUrl
   }
+
+  baseUrl = baseServerUrl
+
   return baseUrl
 }
 
-const request = Axios.create({
-  timeout: 5000
-})
-
-// 请求拦截器
-request.interceptors.request.use(config => {
-  let { url } = config
-  // 根据url前缀设置对应的baseURL
-  config.baseURL = setBaseUrl(url)
-
-  // 设置自定义请求头
+// 设置自定义请求头
+function setHeaders (config) {
   if (getToken()) {
     config.headers['X-Token'] = getToken()
   }
+}
+
+//  请求拦截器
+request.interceptors.request.use(function (config) {
+  const { url, _showLoading = false } = config
+
+  showLoading(_showLoading)
+
+  setHeaders(config)
+
+  // 根据url前缀设置对应的baseURL
+  config.baseURL = setBaseUrl(url)
   return config
-}, error => {
+}, function (error) {
+  closeLoading(toast)
+
+  Notification.error({
+    title: '错误',
+    message: '网络不佳，请稍后重试'
+  })
+
   return Promise.reject(error)
 })
 
 // 响应拦截器
-request.interceptors.response.use(response => {
-  return response
-}, error => {
+request.interceptors.response.use(function (response) {
+  const { data, config } = response
+
+  closeLoading(toast)
+
+  // 是否显示错误信息
+  if (parseInt(data.status) !== 1 && (config._hideError !== true)) {
+    Notification.error({
+      title: '错误',
+      message: data.message || '网络不佳，请稍后重试'
+    })
+  }
+
+  // 判断得到 {data: {}} 还是 data
+  if (config._returnAll) {
+    return data
+  }
+  return data.data
+}, function (error) {
+  closeLoading(toast)
+
   const { response = {} } = error
   const { status } = response
-  // 如果有自定义则有限显示自定义，否则显示系统返回信息
-  const errorMessage = httpCode[status] ? httpCode[status]['message'] : error.message
 
   if (status === 401) {
     Notification.error({
       title: '错误',
-      message: errorMessage
+      message: error.message || '未登录或登录已过期，请重新登录。'
     })
     router.push({ path: '/login' })
     return Promise.reject(error)
   }
 
-  if (status === 404) {
-    Notification.error({
-      title: '错误',
-      message: errorMessage
-    })
-    return Promise.reject(error)
-  }
-
-  if (status === 500) {
-    Notification.error({
-      title: '错误',
-      message: errorMessage
-    })
-    return Promise.reject(error)
-  }
   Notification.error({
     title: '错误',
-    message: errorMessage
+    message: '网络不佳，请稍后重试'
   })
   return Promise.reject(error)
 })
