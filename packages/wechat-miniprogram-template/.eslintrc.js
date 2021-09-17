@@ -4,22 +4,19 @@ module.exports = {
     commonjs: true,
     es6: true
   },
-  extends: [
-    'standard'
-  ],
+  extends: ['standard', 'plugin:prettier/recommended'],
+  plugins: ['prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
-    getApp: "writable",
-    wx: "writable",
-    App: "writable",
-    Page: "writable",
-    Component: "writable"
-  },
-  parserOptions: {
-    ecmaVersion: 2018
+    getApp: 'writable',
+    wx: 'writable',
+    App: 'writable',
+    Page: 'writable',
+    Component: 'writable',
+    getCurrentPages: 'writable'
   },
   rules: {
-    eqeqeq: "off"
+    'prettier/prettier': 'error'
   }
 }

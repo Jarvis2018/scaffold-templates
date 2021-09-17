@@ -1,0 +1,14 @@
+{
+  "printWidth": 80,
+  "proseWrap": "never",
+  "singleQuote": true,
+  "semi": false,
+  "stylelintIntegration": true,
+  "eslintIntegration": true,
+  "insertPragma": false,
+  "trailingComma": "none",
+  "arrowParens": "avoid",
+  "overrides": [
+    { "files": ".prettierrc", "options": { "parser": "json" } }
+  ]
+}
