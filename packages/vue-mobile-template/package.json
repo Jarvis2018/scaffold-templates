@@ -42,12 +42,6 @@
     "vconsole-webpack-plugin": "^1.5.1",
     "vue-template-compiler": "^2.6.11"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,vue}": [
       "vue-cli-service lint",
